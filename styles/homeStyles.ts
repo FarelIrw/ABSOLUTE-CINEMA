@@ -37,4 +37,10 @@ export const homeStyles = StyleSheet.create({
     color: "#a0a0b0",
     marginBottom: 8,
   },
+  cardSynopsis: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: "#c4c4d0",
+    marginTop: 8,
+  },
 });
