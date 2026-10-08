@@ -1,10 +1,4 @@
-export interface Movie {
-  title: string;
-  genre: string;
-  rating: number;
-  duration: number;
-}
-
+import { Movie } from  "../types/movie"
 
 // 1. Mengambil film berdasarkan genre
 export function getMoviesByGenre(

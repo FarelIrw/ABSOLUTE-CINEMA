@@ -11,18 +11,9 @@ export const movies: Movie[] = [
     synopsis:
       "Seorang bankir yang dihukum atas pembunuhan yang tidak ia lakukan menjalin persahabatan dan menjaga harapan di dalam penjara.",
   },
+  
   {
     id: 2,
-    title: "The Dark Knight",
-    genre: "Action",
-    year: 2008,
-    rating: 9.0,
-    duration: 152,
-    synopsis:
-      "Batman menghadapi Joker, penjahat kacau yang mengancam Kota Gotham dan menguji batas moral sang pahlawan.",
-  },
-  {
-    id: 3,
     title: "Inception",
     genre: "Sci-Fi",
     year: 2010,
@@ -32,7 +23,7 @@ export const movies: Movie[] = [
       "Seorang pencuri yang mencuri rahasia lewat mimpi diberi tugas menanamkan sebuah ide ke dalam pikiran target.",
   },
   {
-    id: 4,
+    id: 3,
     title: "Interstellar",
     genre: "Sci-Fi",
     year: 2014,
@@ -42,7 +33,7 @@ export const movies: Movie[] = [
       "Sekelompok astronot melintasi lubang cacing untuk mencari planet baru demi menyelamatkan umat manusia.",
   },
   {
-    id: 5,
+    id: 4,
     title: "Spirited Away",
     genre: "Animation",
     year: 2001,
@@ -52,7 +43,7 @@ export const movies: Movie[] = [
       "Seorang gadis terjebak di dunia roh dan harus bekerja di pemandian untuk menyelamatkan orang tuanya.",
   },
   {
-    id: 6,
+    id: 5,
     title: "Parasite",
     genre: "Thriller",
     year: 2019,
@@ -62,7 +53,7 @@ export const movies: Movie[] = [
       "Keluarga miskin menyusup ke kehidupan keluarga kaya, dan hubungan keduanya berubah menjadi tak terduga.",
   },
   {
-    id: 7,
+    id: 6,
     title: "Whiplash",
     genre: "Drama",
     year: 2014,
@@ -72,7 +63,7 @@ export const movies: Movie[] = [
       "Seorang drummer muda berambisi menjadi hebat di bawah bimbingan instruktur musik yang sangat keras.",
   },
   {
-    id: 8,
+    id: 7,
     title: "Pengabdi Setan",
     genre: "Horror",
     year: 2017,
@@ -80,5 +71,25 @@ export const movies: Movie[] = [
     duration: 107,
     synopsis:
       "Sebuah keluarga diteror kekuatan gaib setelah sang ibu meninggal dunia.",
+  },
+  {
+    id: 8,
+    title: "Perempuan Tanah Jahanam",
+    genre: "Horror/Thriller",
+    year: 2019,
+    rating: 6.6,
+    duration: 107,
+    synopsis:
+      "Mengisahkan Maya, seorang gadis yang mendatangi sebuah desa terpencil demi mengklaim rumah warisan orang tuanya, tanpa mengetahui bahwa kedatangannya memicu malapetaka kelam terkait kutukan di desa tersebut",
+  },
+  {
+    id: 9,
+    title: "KKN di Desa Penari",
+    genre: "Horror",
+    year: 2022,
+    rating: 5.9,
+    duration: 130,
+    synopsis:
+      " Sekelompok mahasiswa yang menjalani program Kuliah Kerja Nyata (KKN) di sebuah desa terpencil mengalami serangkaian kejadian mistis setelah melanggar aturan adat setempat.",
   },
 ];
