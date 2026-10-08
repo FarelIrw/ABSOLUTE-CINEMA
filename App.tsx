@@ -1,114 +1,83 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { FlatList, Pressable, Text, View } from "react-native";
+import MovieCard from "./components/MovieCard";
+import { movies } from "./data/movies";
+import { getAverageRating, getMoviesByGenre } from "./functions/movieUtils";
+import { homeStyles } from "./styles/homeStyles";
+import { Genre } from "./types/movie";
 
-import {
-  getMoviesByGenre,
-  formatDuration,
-  getAverageRating,
-  Movie,
-} from './functions/movieUtils';
+type Filter = Genre | "Semua";
 
-const movies: Movie[] = [
-  {
-    title: 'Avengers',
-    genre: 'Action',
-    rating: 8.5,
-    duration: 143,
-  },
-  {
-    title: 'Frozen',
-    genre: 'Animation',
-    rating: 8.0,
-    duration: 102,
-  },
-  {
-    title: 'John Wick',
-    genre: 'Action',
-    rating: 9.0,
-    duration: 131,
-  },
+const filters: Filter[] = [
+  "Semua",
+  "Action",
+  "Animation",
+  "Drama",
+  "Horror",
+  "Sci-Fi",
+  "Thriller",
 ];
 
 export default function App() {
-  // Mengambil film dengan genre Action
-  const actionMovies = getMoviesByGenre(movies, 'Action');
+  const [selected, setSelected] = useState<Filter>("Semua");
 
-  // Menghitung rata-rata rating
-  const averageRating = getAverageRating(movies);
-
-  // Mengubah 135 menit menjadi format jam dan menit
-  const duration = formatDuration(135);
+  const visibleMovies =
+    selected === "Semua" ? movies : getMoviesByGenre(movies, selected);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>🎬 Movie Utility</Text>
+    <View style={homeStyles.container}>
+      <View style={homeStyles.header}>
+        <Text style={homeStyles.title}>Absolute Cinema</Text>
+        <Text style={{ color: "#a0a0b0", marginTop: 4 }}>
+          {visibleMovies.length} film • rata-rata rating{" "}
+          {visibleMovies.length > 0
+            ? getAverageRating(visibleMovies).toFixed(1)
+            : "-"}
+        </Text>
+      </View>
 
-      <View style={styles.card}>
-        <Text style={styles.heading}>Film Genre Action</Text>
+      {/* Filter genre (inline style: chip aktif berbeda warna) */}
+      <View style={{ paddingVertical: 12 }}>
+        <FlatList
+          horizontal
+          data={filters}
+          keyExtractor={(item) => item}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 16 }}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => setSelected(item)}
+              style={{
+                paddingVertical: 8,
+                paddingHorizontal: 14,
+                borderRadius: 20,
+                marginRight: 8,
+                backgroundColor: item === selected ? "#ffffff" : "#1a1a24",
+              }}
+            >
+              <Text
+                style={{
+                  color: item === selected ? "#0f0f14" : "#ffffff",
+                  fontWeight: "600",
+                }}
+              >
+                {item}
+              </Text>
+            </Pressable>
+          )}
+        />
+      </View>
 
-        {actionMovies.map((movie) => (
-          <Text style={styles.text} key={movie.title}>
-            • {movie.title}
+      <FlatList
+        data={visibleMovies}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <MovieCard movie={item} />}
+        ListEmptyComponent={
+          <Text style={{ color: "#a0a0b0", textAlign: "center", marginTop: 32 }}>
+            Film tidak ditemukan
           </Text>
-        ))}
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.heading}>⏱ Format Durasi</Text>
-
-        <Text style={styles.text}>
-          135 menit → {duration}
-        </Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.heading}>⭐ Rata-rata Rating</Text>
-
-        <Text style={styles.rating}>
-          {averageRating.toFixed(1)}
-        </Text>
-      </View>
-
-      <StatusBar style="auto" />
+        }
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-    justifyContent: 'center',
-  },
-
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 25,
-  },
-
-  card: {
-    backgroundColor: '#ffffff',
-    padding: 20,
-    marginBottom: 15,
-    borderRadius: 12,
-  },
-
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-
-  text: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-
-  rating: {
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-});
