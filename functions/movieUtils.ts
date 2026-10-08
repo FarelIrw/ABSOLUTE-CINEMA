@@ -1,14 +1,14 @@
-import { Movie } from  "../types/movie"
+import { Genre, Movie } from  "../types/movie"
 
 // 1. Mengambil film berdasarkan genre
 export function getMoviesByGenre(
   movies: Movie[],
-  genre: string
+  genre: Genre
 ): Movie[] {
   const result: Movie[] = [];
 
   for (const movie of movies) {
-    if (movie.genre.toLowerCase() === genre.toLowerCase()) {
+    if (movie.genre.includes(genre)) {
       result.push(movie);
     }
   }

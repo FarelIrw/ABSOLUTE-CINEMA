@@ -4,7 +4,7 @@ export const movies: Movie[] = [
   {
     id: 1,
     title: "The Shawshank Redemption",
-    genre: "Drama",
+    genre: ["Drama"],
     year: 1994,
     rating: 9.3,
     duration: 142,
@@ -15,7 +15,7 @@ export const movies: Movie[] = [
   {
     id: 2,
     title: "Inception",
-    genre: "Sci-Fi",
+    genre: ["Sci-Fi"],
     year: 2010,
     rating: 8.8,
     duration: 148,
@@ -25,7 +25,7 @@ export const movies: Movie[] = [
   {
     id: 3,
     title: "Interstellar",
-    genre: "Sci-Fi",
+    genre: ["Sci-Fi"],
     year: 2014,
     rating: 8.7,
     duration: 169,
@@ -35,7 +35,7 @@ export const movies: Movie[] = [
   {
     id: 4,
     title: "Spirited Away",
-    genre: "Animation",
+    genre: ["Animation"],
     year: 2001,
     rating: 8.6,
     duration: 125,
@@ -45,7 +45,7 @@ export const movies: Movie[] = [
   {
     id: 5,
     title: "Parasite",
-    genre: "Thriller",
+    genre: ["Thriller"],
     year: 2019,
     rating: 8.5,
     duration: 132,
@@ -55,7 +55,7 @@ export const movies: Movie[] = [
   {
     id: 6,
     title: "Whiplash",
-    genre: "Drama",
+    genre: ["Drama"],
     year: 2014,
     rating: 8.5,
     duration: 106,
@@ -65,7 +65,7 @@ export const movies: Movie[] = [
   {
     id: 7,
     title: "Pengabdi Setan",
-    genre: "Horror",
+    genre: ["Horror"],
     year: 2017,
     rating: 6.5,
     duration: 107,
@@ -75,7 +75,7 @@ export const movies: Movie[] = [
   {
     id: 8,
     title: "Perempuan Tanah Jahanam",
-    genre: "Horror/Thriller",
+    genre: ["Horror", "Thriller"],
     year: 2019,
     rating: 6.6,
     duration: 107,
@@ -85,7 +85,7 @@ export const movies: Movie[] = [
   {
     id: 9,
     title: "KKN di Desa Penari",
-    genre: "Horror",
+    genre: ["Horror"],
     year: 2022,
     rating: 5.9,
     duration: 130,

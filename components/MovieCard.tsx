@@ -14,7 +14,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
 
       {/* genre • tahun • durasi (135 -> "2j 15m") */}
       <Text style={homeStyles.cardInfo}>
-        {movie.genre} • {movie.year} • {formatDuration(movie.duration)}
+        {movie.genre.join(", ")} • {movie.year} • {formatDuration(movie.duration)}
       </Text>
 
       {/* Inline style: hijau jika rating di atas 8, kuning jika di bawahnya */}
