@@ -1,6 +1,6 @@
 import { Genre, Movie } from  "../types/movie"
 
-// 1. Mengambil film berdasarkan genre
+
 export function getMoviesByGenre(
   movies: Movie[],
   genre: Genre
@@ -17,7 +17,6 @@ export function getMoviesByGenre(
 }
 
 
-// 2. Mengubah durasi menit menjadi jam dan menit
 export function formatDuration(minutes: number): string {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
@@ -26,7 +25,7 @@ export function formatDuration(minutes: number): string {
 }
 
 
-// 3. Menghitung mean rating film
+
 export function getAverageRating(movies: Movie[]): number {
   if (movies.length === 0) {
     return 0;

@@ -87,7 +87,7 @@ export const movies: Movie[] = [
     title: "KKN di Desa Penari",
     genre: ["Horror"],
     year: 2022,
-    rating: 5.9,
+    rating: 5.6,
     duration: 130,
     synopsis:
       " Sekelompok mahasiswa yang menjalani program Kuliah Kerja Nyata (KKN) di sebuah desa terpencil mengalami serangkaian kejadian mistis setelah melanggar aturan adat setempat.",
