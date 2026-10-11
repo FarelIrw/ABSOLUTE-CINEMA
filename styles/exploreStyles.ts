@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-// External style: dipakai oleh App.tsx dan MovieCard.tsx
 export const exploreStyles = StyleSheet.create({
   container: {
     flex: 1,
