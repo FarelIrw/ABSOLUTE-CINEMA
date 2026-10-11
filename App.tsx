@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import BottomNav, { ComingSoon, TabKey, tabs } from "./components/BottomNav";
+import HomeScreen from "./components/HomeScreen";
 import MovieCard from "./components/MovieCard";
 import { movies } from "./data/movies";
 import { getAverageRating, getMoviesByGenre } from "./functions/movieUtils";
@@ -62,7 +63,13 @@ export default function App() {
 
   return (
     <View style={exploreStyles.container}>
-      {tab !== "explore" ? (
+      {tab === "home" ? (
+        <HomeScreen
+          movies={allMovies}
+          details={details}
+          onSeeAll={() => setTab("explore")}
+        />
+      ) : tab !== "explore" ? (
         <ComingSoon title={activeTab.label} icon={activeTab.icon} />
       ) : (
       <View style={{ flex: 1 }}>
