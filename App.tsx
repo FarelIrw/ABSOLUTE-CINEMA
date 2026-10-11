@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
+import BottomNav, { ComingSoon, TabKey, tabs } from "./components/BottomNav";
 import MovieCard from "./components/MovieCard";
 import { movies } from "./data/movies";
 import { getAverageRating, getMoviesByGenre } from "./functions/movieUtils";
 import { applyDetails, fetchMovieDetails, MovieDetails } from "./functions/tmdb";
-import { homeStyles } from "./styles/homeStyles";
+import { exploreStyles } from "./styles/exploreStyles";
 import { Genre } from "./types/movie";
 
 type Filter = Genre | "Semua";
@@ -21,6 +22,9 @@ const filters: Filter[] = [
 
 export default function App() {
   const [selected, setSelected] = useState<Filter>("Semua");
+
+  // State: tab navbar yang sedang aktif
+  const [tab, setTab] = useState<TabKey>("home");
 
   // State: data TMDB per film (kunci = id film). Awalnya kosong.
   const [details, setDetails] = useState<Record<number, MovieDetails>>({});
@@ -54,10 +58,16 @@ export default function App() {
   const visibleMovies =
     selected === "Semua" ? allMovies : getMoviesByGenre(allMovies, selected);
 
+  const activeTab = tabs.find((t) => t.key === tab)!;
+
   return (
-    <View style={homeStyles.container}>
-      <View style={homeStyles.header}>
-        <Text style={homeStyles.title}>Absolute Cinema</Text>
+    <View style={exploreStyles.container}>
+      {tab !== "explore" ? (
+        <ComingSoon title={activeTab.label} icon={activeTab.icon} />
+      ) : (
+      <View style={{ flex: 1 }}>
+      <View style={exploreStyles.header}>
+        <Text style={exploreStyles.title}>Absolute Cinema</Text>
         <Text style={{ color: "#a0a0b0", marginTop: 4 }}>
           {visibleMovies.length} film • rata-rata rating{" "}
           {visibleMovies.length > 0
@@ -101,6 +111,7 @@ export default function App() {
       <FlatList
         data={visibleMovies}
         keyExtractor={(item) => String(item.id)}
+        contentContainerStyle={{ paddingBottom: 100 }}
         renderItem={({ item }) => (
           <MovieCard movie={item} posterUrl={details[item.id]?.posterUrl} />
         )}
@@ -110,6 +121,10 @@ export default function App() {
           </Text>
         }
       />
+      </View>
+      )}
+
+      <BottomNav active={tab} onChange={setTab} />
     </View>
   );
 }
