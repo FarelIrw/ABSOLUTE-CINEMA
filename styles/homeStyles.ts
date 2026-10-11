@@ -1,11 +1,5 @@
 import { StyleSheet } from "react-native";
 
-// Warna dipakai MovieCard untuk badge rating (inline style)
-export const colors = {
-  good: "#4ade80", // hijau: rating di atas 8
-  warn: "#facc15", // kuning: rating 8 ke bawah
-};
-
 // External style: dipakai oleh App.tsx dan MovieCard.tsx
 export const homeStyles = StyleSheet.create({
   container: {
@@ -25,66 +19,72 @@ export const homeStyles = StyleSheet.create({
     fontWeight: "bold",
     color: "#ffffff",
   },
+
+  // Kartu horizontal: poster di kiri, teks di kanan
   card: {
+    flexDirection: "row",
     backgroundColor: "#1a1a24",
     borderRadius: 12,
-    padding: 16,
+    padding: 12,
     marginHorizontal: 16,
-    marginVertical: 8,
+    marginVertical: 6,
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#ffffff",
-    marginTop: 12,
-    marginBottom: 4,
+  posterWrapper: {
+    width: 100,
+    height: 150,
+    marginRight: 12,
   },
-  cardMeta: {
-    fontSize: 14,
-    color: "#a0a0b0",
-  },
-  cardInfo: {
-    fontSize: 14,
-    color: "#a0a0b0",
-    marginBottom: 8,
-  },
-  cardSynopsis: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: "#c4c4d0",
-    marginTop: 8,
-  },
-  // Poster dari TMDB
+  // Poster TMDB (rasio 2:3, jadi 100x150 pas tanpa terpotong)
   poster: {
-    width: "100%",
-    height: 260,
+    width: 100,
+    height: 150,
     borderRadius: 8,
     backgroundColor: "#0f0f14",
-    resizeMode: "contain",
   },
   // Kotak pengganti saat poster belum ada / token kosong
   posterPlaceholder: {
-    width: "100%",
-    height: 260,
+    width: 100,
+    height: 150,
     borderRadius: 8,
     backgroundColor: "#2a2a38",
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
+    padding: 8,
   },
   posterPlaceholderText: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: "600",
     textAlign: "center",
   },
+  // Badge rating di pojok kanan atas poster
   ratingBadge: {
     position: "absolute",
-    top: 8,
-    right: 8,
+    top: 2,
+    right: 2,
     backgroundColor: "rgba(0,0,0,0.75)",
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 8,
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+    borderRadius: 6,
+  },
+  cardBody: {
+    flex: 1,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#ffffff",
+    marginBottom: 4,
+  },
+  cardInfo: {
+    fontSize: 12,
+    color: "#a0a0b0",
+    marginBottom: 6,
+  },
+  cardSynopsis: {
+    paddingTop: 20,
+    lineHeight: 20,
+    color: "#c4c4d0",
+    textAlign: "justify"
   },
 });
