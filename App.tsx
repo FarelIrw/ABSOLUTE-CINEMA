@@ -5,7 +5,7 @@ import MovieCard from "./components/MovieCard";
 import { movies } from "./data/movies";
 import { getAverageRating, getMoviesByGenre } from "./functions/movieUtils";
 import { applyDetails, fetchMovieDetails, MovieDetails } from "./functions/tmdb";
-import { homeStyles } from "./styles/homeStyles";
+import { exploreStyles } from "./styles/exploreStyles";
 import { Genre } from "./types/movie";
 
 type Filter = Genre | "Semua";
@@ -61,13 +61,13 @@ export default function App() {
   const activeTab = tabs.find((t) => t.key === tab)!;
 
   return (
-    <View style={homeStyles.container}>
-      {tab !== "home" ? (
+    <View style={exploreStyles.container}>
+      {tab !== "explore" ? (
         <ComingSoon title={activeTab.label} icon={activeTab.icon} />
       ) : (
       <View style={{ flex: 1 }}>
-      <View style={homeStyles.header}>
-        <Text style={homeStyles.title}>Absolute Cinema</Text>
+      <View style={exploreStyles.header}>
+        <Text style={exploreStyles.title}>Absolute Cinema</Text>
         <Text style={{ color: "#a0a0b0", marginTop: 4 }}>
           {visibleMovies.length} film • rata-rata rating{" "}
           {visibleMovies.length > 0
