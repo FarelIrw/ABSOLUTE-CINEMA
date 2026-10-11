@@ -1,34 +1,14 @@
-import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { formatDuration } from "../functions/movieUtils";
-import { fetchPosterUrl } from "../functions/tmdb";
 import { homeStyles } from "../styles/homeStyles";
 import { Movie } from "../types/movie";
 
 type MovieCardProps = {
-  movie: Movie;
+  movie: Movie; // sudah digabung dengan data TMDB di App.tsx
+  posterUrl?: string | null;
 };
 
-export default function MovieCard({ movie }: MovieCardProps) {
-  // State: URL poster. null = belum ada (sedang dimuat / tidak ditemukan / token kosong)
-  const [posterUrl, setPosterUrl] = useState<string | null>(null);
-
-  // Effect: jalan setelah kartu tampil, dan lagi hanya jika judul/tahun berubah
-  useEffect(() => {
-    let ignore = false;
-
-    fetchPosterUrl(movie.title, movie.year).then((url) => {
-      if (!ignore) {
-        setPosterUrl(url); // ubah state -> kartu dirender ulang
-      }
-    });
-
-    // Cleanup: abaikan hasil jika kartu sudah hilang sebelum data datang
-    return () => {
-      ignore = true;
-    };
-  }, [movie.title, movie.year]);
-
+export default function MovieCard({ movie, posterUrl }: MovieCardProps) {
   return (
     <View style={homeStyles.card}>
       {/* Poster dari TMDB; kalau belum ada, tampilkan kotak berisi judul */}
