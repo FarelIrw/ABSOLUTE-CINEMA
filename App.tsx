@@ -3,8 +3,13 @@ import { FlatList, Pressable, Text, View } from "react-native";
 import BottomNav, { ComingSoon, TabKey, tabs } from "./components/BottomNav";
 import HomeScreen from "./components/HomeScreen";
 import MovieCard from "./components/MovieCard";
+import SearchBar, { SearchEmpty } from "./components/SearchBar";
 import { movies } from "./data/movies";
-import { getAverageRating, getMoviesByGenre } from "./functions/movieUtils";
+import {
+  getAverageRating,
+  getMoviesByGenre,
+  searchMovies,
+} from "./functions/movieUtils";
 import { applyDetails, fetchMovieDetails, MovieDetails } from "./functions/tmdb";
 import { exploreStyles } from "./styles/exploreStyles";
 import { Genre } from "./types/movie";
@@ -23,6 +28,9 @@ const filters: Filter[] = [
 
 export default function App() {
   const [selected, setSelected] = useState<Filter>("Semua");
+
+  // State: teks yang diketik di kotak pencarian
+  const [query, setQuery] = useState("");
 
   // State: tab navbar yang sedang aktif
   const [tab, setTab] = useState<TabKey>("home");
@@ -55,9 +63,12 @@ export default function App() {
     [details]
   );
 
-  // Filter dan rata-rata rating memakai data gabungan (genre & rating dari TMDB)
-  const visibleMovies =
+  // Langkah 1: saring berdasarkan genre yang dipilih
+  const genreMovies =
     selected === "Semua" ? allMovies : getMoviesByGenre(allMovies, selected);
+
+  // Langkah 2: saring lagi berdasarkan teks pencarian (kosong = tampilkan semua)
+  const visibleMovies = searchMovies(genreMovies, query);
 
   const activeTab = tabs.find((t) => t.key === tab)!;
 
@@ -72,63 +83,75 @@ export default function App() {
       ) : tab !== "explore" ? (
         <ComingSoon title={activeTab.label} icon={activeTab.icon} />
       ) : (
-      <View style={{ flex: 1 }}>
-      <View style={exploreStyles.header}>
-        <Text style={exploreStyles.title}>Absolute Cinema</Text>
-        <Text style={{ color: "#a0a0b0", marginTop: 4 }}>
-          {visibleMovies.length} film • rata-rata rating{" "}
-          {visibleMovies.length > 0
-            ? getAverageRating(visibleMovies).toFixed(1)
-            : "-"}
-        </Text>
-      </View>
+        <View style={{ flex: 1 }}>
+          <View style={exploreStyles.header}>
+            <Text style={exploreStyles.title}>Absolute Cinema</Text>
+            <Text style={{ color: "#a0a0b0", marginTop: 4 }}>
+              {visibleMovies.length} film • rata-rata rating{" "}
+              {visibleMovies.length > 0
+                ? getAverageRating(visibleMovies).toFixed(1)
+                : "-"}
+            </Text>
+          </View>
 
-      {/* Filter genre (inline style: chip aktif berbeda warna) */}
-      <View style={{ paddingVertical: 12 }}>
-        <FlatList
-          horizontal
-          data={filters}
-          keyExtractor={(item) => item}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 16 }}
-          renderItem={({ item }) => (
-            <Pressable
-              onPress={() => setSelected(item)}
-              style={{
-                paddingVertical: 8,
-                paddingHorizontal: 14,
-                borderRadius: 20,
-                marginRight: 8,
-                backgroundColor: item === selected ? "#ffffff" : "#1a1a24",
-              }}
-            >
-              <Text
-                style={{
-                  color: item === selected ? "#0f0f14" : "#ffffff",
-                  fontWeight: "600",
-                }}
-              >
-                {item}
-              </Text>
-            </Pressable>
-          )}
-        />
-      </View>
+          {/* Kotak pencarian: di bawah header, di atas filter genre */}
+          <SearchBar value={query} onChangeText={setQuery} />
 
-      <FlatList
-        data={visibleMovies}
-        keyExtractor={(item) => String(item.id)}
-        contentContainerStyle={{ paddingBottom: 100 }}
-        renderItem={({ item }) => (
-          <MovieCard movie={item} posterUrl={details[item.id]?.posterUrl} />
-        )}
-        ListEmptyComponent={
-          <Text style={{ color: "#a0a0b0", textAlign: "center", marginTop: 32 }}>
-            Film tidak ditemukan
-          </Text>
-        }
-      />
-      </View>
+          {/* Filter genre (inline style: chip aktif berbeda warna) */}
+          <View style={{ paddingVertical: 12 }}>
+            <FlatList
+              horizontal
+              data={filters}
+              keyExtractor={(item) => item}
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{ paddingHorizontal: 16 }}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => setSelected(item)}
+                  style={{
+                    paddingVertical: 8,
+                    paddingHorizontal: 14,
+                    borderRadius: 20,
+                    marginRight: 8,
+                    backgroundColor: item === selected ? "#ffffff" : "#1a1a24",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: item === selected ? "#0f0f14" : "#ffffff",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {item}
+                  </Text>
+                </Pressable>
+              )}
+            />
+          </View>
+
+          <FlatList
+            data={visibleMovies}
+            keyExtractor={(item) => String(item.id)}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={{ paddingBottom: 100 }}
+            renderItem={({ item }) => (
+              <MovieCard movie={item} posterUrl={details[item.id]?.posterUrl} />
+            )}
+            ListEmptyComponent={
+              query.trim() !== "" ? (
+                <SearchEmpty query={query} />
+              ) : (
+                <Text
+                  style={{ color: "#a0a0b0", textAlign: "center", marginTop: 32 }}
+                >
+                  Film tidak ditemukan
+                </Text>
+              )
+            }
+          />
+        </View>
       )}
 
       <BottomNav active={tab} onChange={setTab} />
