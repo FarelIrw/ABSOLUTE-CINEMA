@@ -8,10 +8,11 @@ type MovieRowProps = {
   movies: Movie[];
   details: Record<number, MovieDetails>; // data TMDB per film (untuk poster)
   onSeeAll?: () => void;
+  onMoviePress?: (movie: Movie) => void; // dipanggil saat poster ditekan
 };
 
 // Satu baris film yang bisa digeser ke samping, dengan judul section di atasnya
-export default function MovieRow({ title, movies, details, onSeeAll }: MovieRowProps) {
+export default function MovieRow({ title, movies, details, onSeeAll, onMoviePress }: MovieRowProps) {
   return (
     <View style={homeStyles.section}>
       <View style={homeStyles.sectionHeader}>
@@ -32,7 +33,7 @@ export default function MovieRow({ title, movies, details, onSeeAll }: MovieRowP
         renderItem={({ item }) => {
           const posterUrl = details[item.id]?.posterUrl;
           return (
-            <View style={homeStyles.rowCard}>
+            <Pressable style={homeStyles.rowCard} onPress={() => onMoviePress?.(item)}>
               {posterUrl ? (
                 <Image source={{ uri: posterUrl }} style={homeStyles.rowPoster} />
               ) : (
@@ -58,7 +59,7 @@ export default function MovieRow({ title, movies, details, onSeeAll }: MovieRowP
                 {item.title}
               </Text>
               <Text style={homeStyles.rowYear}>{item.year}</Text>
-            </View>
+            </Pressable>
           );
         }}
       />

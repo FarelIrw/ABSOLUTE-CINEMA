@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { formatDuration } from "../functions/movieUtils";
 import { exploreStyles } from "../styles/exploreStyles";
 import { Movie } from "../types/movie";
@@ -6,11 +6,15 @@ import { Movie } from "../types/movie";
 type MovieCardProps = {
   movie: Movie; 
   posterUrl?: string | null;
+  onPress?: () => void; // dipanggil saat kartu ditekan
 };
 
-export default function MovieCard({ movie, posterUrl }: MovieCardProps) {
+export default function MovieCard({ movie, posterUrl, onPress }: MovieCardProps) {
   return (
-    <View style={exploreStyles.card}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [exploreStyles.card, pressed && { opacity: 0.7 }]}
+    >
       <View style={exploreStyles.posterWrapper}>
         
         {posterUrl ? (
@@ -51,6 +55,6 @@ export default function MovieCard({ movie, posterUrl }: MovieCardProps) {
         </Text>
       </View>
       
-    </View>
+    </Pressable>
   );
 }

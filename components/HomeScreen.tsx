@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { formatDuration } from "../functions/movieUtils";
 import { MovieDetails } from "../functions/tmdb";
 import { exploreStyles } from "../styles/exploreStyles";
@@ -11,11 +11,12 @@ type HomeScreenProps = {
   movies: Movie[]; // data gabungan manual + TMDB (allMovies dari App)
   details: Record<number, MovieDetails>;
   onSeeAll: () => void; // pindah ke tab Jelajah
+  onMoviePress: (movie: Movie) => void; // buka layar detail film
 };
 
 // Layar Beranda: film unggulan + baris "Rating Tertinggi" dan "Film Terbaru".
 // Hanya membaca data dari App, tidak memanggil TMDB sendiri.
-export default function HomeScreen({ movies, details, onSeeAll }: HomeScreenProps) {
+export default function HomeScreen({ movies, details, onSeeAll, onMoviePress }: HomeScreenProps) {
   // Urutan rating tertinggi -> terendah (salinan, array asli tidak diubah)
   const topRated = useMemo(
     () => [...movies].sort((a, b) => b.rating - a.rating),
@@ -42,7 +43,7 @@ export default function HomeScreen({ movies, details, onSeeAll }: HomeScreenProp
 
       <ScrollView contentContainerStyle={homeStyles.content}>
         {featured && (
-          <View style={homeStyles.hero}>
+          <Pressable style={homeStyles.hero} onPress={() => onMoviePress(featured)}>
             {featuredPoster ? (
               <Image
                 source={{ uri: featuredPoster }}
@@ -67,7 +68,7 @@ export default function HomeScreen({ movies, details, onSeeAll }: HomeScreenProp
                 {formatDuration(featured.duration)}
               </Text>
             </View>
-          </View>
+          </Pressable>
         )}
 
         <MovieRow
@@ -75,12 +76,14 @@ export default function HomeScreen({ movies, details, onSeeAll }: HomeScreenProp
           movies={topRated.slice(0, 6)}
           details={details}
           onSeeAll={onSeeAll}
+          onMoviePress={onMoviePress}
         />
         <MovieRow
           title="Film Terbaru"
           movies={newest.slice(0, 6)}
           details={details}
           onSeeAll={onSeeAll}
+          onMoviePress={onMoviePress}
         />
       </ScrollView>
     </View>
