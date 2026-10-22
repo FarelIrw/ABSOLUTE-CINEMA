@@ -1,13 +1,9 @@
+import { Tabs } from "expo-router";
+import BottomNav from "../../components/BottomNav";
+import {Stack} from "expo-router";
 
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { MoviesProvider } from "../../context/MoviesContext";
-export default function RootLayout() {
-  return (
-    <MoviesProvider>
-      <StatusBar style="light" />
-
-      // app/_layout.tsx
+// Layout grup (tabs): memakai Tabs bawaan expo-router,
+// tetapi tampilan bar-nya tetap BottomNav milik kita (lewat prop tabBar).
 <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "#0f0f14" } }}>
   <Stack.Screen name="(tabs)" />
   <Stack.Screen
@@ -20,7 +16,13 @@ export default function RootLayout() {
       headerTintColor: "#ffffff",
     }}
   />
-  </Stack>
-    </MoviesProvider>
+</Stack>
+
+export default function TabsLayout() {
+  return (
+    <Tabs
+      tabBar={() => <BottomNav />}
+      screenOptions={{ headerShown: false }}
+    />
   );
 }
