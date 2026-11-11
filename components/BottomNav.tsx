@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { Href, useRouter, usePathname } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { NAV, navStyles } from "../styles/navStyles";
+ 
+export type TabKey = "home" | "explore" | "favorites" | "profile" | "subscription"  
 
-export type TabKey = "home" | "explore" | "favorites" | "profile" | "subscription";
-
-type Tab = {
+interface Tab {
   key: TabKey;
   label: string;
   icon: keyof typeof Ionicons.glyphMap; // ikon outline (tidak aktif)

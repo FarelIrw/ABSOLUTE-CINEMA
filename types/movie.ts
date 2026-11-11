@@ -6,7 +6,7 @@ export type Genre =
   | "Sci-Fi"
   | "Thriller";
 
-export type Movie = {
+export interface Movie {
   id: number;
   title: string;
   genre: Genre[];

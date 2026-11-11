@@ -3,7 +3,7 @@ import { formatDuration } from "../functions/movieUtils";
 import { exploreStyles } from "../styles/exploreStyles";
 import { Movie } from "../types/movie";
 
-type MovieCardProps = {
+interface MovieCardProps {
   movie: Movie; 
   posterUrl?: string | null;
   onPress?: () => void; // dipanggil saat kartu ditekan
