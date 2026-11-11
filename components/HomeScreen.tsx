@@ -7,7 +7,7 @@ import { homeStyles } from "../styles/homeStyles";
 import { Movie } from "../types/movie";
 import MovieRow from "./MovieRow";
 
-type HomeScreenProps = {
+interface HomeScreenProps {
   movies: Movie[]; // data gabungan manual + TMDB (allMovies dari App)
   details: Record<number, MovieDetails>;
   onSeeAll: () => void; // pindah ke tab Jelajah

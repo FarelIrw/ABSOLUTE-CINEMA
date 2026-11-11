@@ -13,19 +13,19 @@ const GENRE_BY_ID: Record<number, Genre> = {
   53: "Thriller",
 };
 
-export type MovieDetails = {
+export interface MovieDetails {
   posterUrl: string | null;
   genres: Genre[] | null; // hanya genre yang ada di tipe Genre
   rating: number | null; // skala 0-10, 1 angka desimal
   synopsis: string | null; // bahasa Indonesia
   duration: number | null; // menit
-};
+}
 
-type SearchResponse = {
+interface SearchResponse  {
   results: { id: number; poster_path: string | null; release_date?: string }[];
 };
 
-type DetailResponse = {
+interface DetailResponse  {
   vote_average: number;
   overview: string;
   runtime: number | null;

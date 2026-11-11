@@ -3,7 +3,7 @@ import { MovieDetails } from "../functions/tmdb";
 import { homeStyles } from "../styles/homeStyles";
 import { Movie } from "../types/movie";
 
-type MovieRowProps = {
+interface MovieRowProps {
   title: string;
   movies: Movie[];
   details: Record<number, MovieDetails>; // data TMDB per film (untuk poster)
