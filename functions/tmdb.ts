@@ -23,14 +23,14 @@ export type MovieDetails = {
 
 type SearchResponse = {
   results: { id: number; poster_path: string | null; release_date?: string }[];
-};
+}
 
 type DetailResponse = {
   vote_average: number;
   overview: string;
   runtime: number | null;
   genres: { id: number }[];
-};
+}
 
 const cache: Record<string, Promise<MovieDetails | null>> = {};
 let warnedNoToken = false;
@@ -40,7 +40,7 @@ async function getJson<T>(url: string): Promise<T> {
     headers: { Authorization: `Bearer ${TOKEN}`, accept: "application/json" },
   });
   if (!response.ok) {
-    throw new Error(`TMDB ${response.status}`);
+    return Promise.reject(new Error(`TMDB ${response.status}`));
   }
   return (await response.json()) as T;
 }
