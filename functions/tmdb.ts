@@ -21,11 +21,11 @@ export interface MovieDetails {
   duration: number | null; // menit
 }
 
-interface SearchResponse  {
+interface SearchResponse {
   results: { id: number; poster_path: string | null; release_date?: string }[];
 }
 
-interface DetailResponse  {
+interface DetailResponse {
   vote_average: number;
   overview: string;
   runtime: number | null;

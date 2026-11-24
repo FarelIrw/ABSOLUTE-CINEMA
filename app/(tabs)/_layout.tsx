@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
 import BottomNav from "../../components/BottomNav";
-import {Stack} from "expo-router";
 
 export default function TabsLayout() {
   return (
