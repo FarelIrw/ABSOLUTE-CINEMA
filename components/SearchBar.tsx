@@ -5,7 +5,7 @@ import { searchStyles } from "../styles/searchStyle";
 // Warna pengganti jika SEARCH belum didefinisikan di file style
 const SEARCH = { muted: "#a0a0b0" };
 
-type SearchBarProps = {
+interface SearchBarProps  {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
