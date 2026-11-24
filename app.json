@@ -23,6 +23,15 @@
       "favicon": "./assets/favicon.png",
       "output": "static"
     },
-    "plugins": [["expo-router", { "apiRoutes": true }], "expo-font"]
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "apiRoutes": true
+        }
+      ],
+      "expo-font",
+      "expo-secure-store"
+    ]
   }
 }
