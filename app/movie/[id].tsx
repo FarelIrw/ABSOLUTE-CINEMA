@@ -1,6 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { useAuth } from "../../context/AuthContext";
 import { useMovies } from "../../context/MoviesContext";
 import { formatDuration } from "../../functions/movieUtils";
 import { detailStyles as s } from "../../styles/detailStyles";
@@ -9,6 +11,18 @@ import { detailStyles as s } from "../../styles/detailStyles";
 export default function MovieDetail() {
   const router = useRouter();
   const { allMovies, details } = useMovies();
+  const { session } = useAuth();
+  // Sementara hanya state lokal (belum disimpan ke database / per akun)
+  const [liked, setLiked] = useState(false);
+
+  // Tombol hati: tamu diarahkan ke layar masuk, pengguna yang sudah login bisa menyukai film
+  const handleFavorite = () => {
+    if (!session) {
+      router.push("/sign-in");
+      return;
+    }
+    setLiked((prev) => !prev);
+  };
 
   // [id] pada nama file -> dibaca lewat useLocalSearchParams (selalu bertipe string)
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -89,6 +103,19 @@ export default function MovieDetail() {
 
       <Pressable style={s.backButton} onPress={goBack} hitSlop={8} accessibilityLabel="Kembali">
         <Ionicons name="arrow-back" size={22} color="#ffffff" />
+      </Pressable>
+
+      <Pressable
+        style={s.favoriteButton}
+        onPress={handleFavorite}
+        hitSlop={8}
+        accessibilityLabel={liked ? "Hapus dari favorit" : "Tambah ke favorit"}
+      >
+        <Ionicons
+          name={session && liked ? "heart" : "heart-outline"}
+          size={22}
+          color={session && liked ? "#f87171" : "#ffffff"}
+        />
       </Pressable>
     </View>
   );
