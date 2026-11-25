@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { formatDuration } from "../functions/movieUtils";
 import { MovieDetails } from "../functions/tmdb";
-import { exploreStyles } from "../styles/exploreStyles";
 import { homeStyles } from "../styles/homeStyles";
 import { Movie } from "../types/movie";
 import MovieRow from "./MovieRow";

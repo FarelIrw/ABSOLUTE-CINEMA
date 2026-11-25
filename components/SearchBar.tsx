@@ -54,7 +54,7 @@ export function SearchEmpty({ query }: { query: string }) {
       <Ionicons name="film-outline" size={48} color={SEARCH.muted} />
       <Text style={searchStyles.emptyTitle}>Film tidak ditemukan</Text>
       <Text style={searchStyles.emptyText}>
-        Tidak ada hasil untuk "{query}". Coba kata kunci lain, misalnya judul,
+        Tidak ada hasil untuk &quot;{query}&quot;. Coba kata kunci lain, misalnya judul,
         genre, atau tahun rilis.
       </Text>
     </View>
